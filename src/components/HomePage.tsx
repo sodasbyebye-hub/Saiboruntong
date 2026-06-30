@@ -6,6 +6,7 @@ import { localizedPath, text } from "@/lib/i18n";
 import { getDictionary } from "@/i18n/site";
 import { categories, products } from "@/lib/products";
 import { CtaButton } from "@/components/CtaButton";
+import { DotField } from "@/components/DotField";
 import { InquiryForm } from "@/components/InquiryForm";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -35,17 +36,41 @@ export function HomePage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-zinc-950 text-white">
+      <section className="relative overflow-hidden bg-[#100d17] text-white">
         <div className="absolute inset-0">
-          <Image src="/assets/catalog/products/gasoline-generator-category.jpg" alt="" fill priority className="object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/90 to-zinc-950/50" />
+          <DotField
+            dotRadius={1.5}
+            dotSpacing={13}
+            cursorRadius={520}
+            bulgeStrength={67}
+            glowRadius={220}
+            sparkle={false}
+            waveAmplitude={0}
+            gradientFrom="rgba(168, 85, 247, 0.95)"
+            gradientTo="rgba(180, 151, 207, 0.7)"
+            glowColor="#251a35"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_18%,rgba(168,85,247,0.18),transparent_30%),linear-gradient(90deg,rgba(9,9,11,0.78)_0%,rgba(15,13,22,0.58)_48%,rgba(14,12,19,0.34)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#100d17] to-transparent" />
         </div>
         <div className="relative mx-auto grid min-h-[620px] max-w-7xl content-center gap-8 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_0.75fr] lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.22em] text-red-400">{dictionary.common.fromChina}</p>
-            <h1 className="text-4xl font-black tracking-tight md:text-6xl">{dictionary.home.heroTitle}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-200">{dictionary.home.heroSubtitle}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end">
+              <div className="inline-flex h-12 w-[min(68vw,250px)] items-center">
+                <Image
+                  src="/assets/catalog/company/logo-transparent.png"
+                  alt={locale === "en" ? "Saiboruntong logo" : "赛博润通 logo"}
+                  width={2508}
+                  height={627}
+                  priority
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-red-400">{dictionary.common.fromChina}</p>
+            </div>
+            <h1 className="max-w-2xl text-4xl font-black leading-[0.96] tracking-tight md:text-5xl xl:text-6xl">{dictionary.home.heroTitle}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-200 md:text-lg md:leading-8">{dictionary.home.heroSubtitle}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
               <CtaButton href={localizedPath(locale, "/contact")} variant="primary">
                 {dictionary.cta.quote}
               </CtaButton>
@@ -56,9 +81,14 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
           <div className="hidden border-l border-white/15 pl-8 lg:block">
             <div className="grid gap-4">
-              {["Gasoline", "Diesel", "Water Pumps", "Lighting Towers"].map((item) => (
-                <div key={item} className="flex items-center justify-between border border-white/15 bg-white/5 px-5 py-4">
-                  <span className="font-semibold">{item}</span>
+              {[
+                ["Gasoline", "汽油发电机"],
+                ["Diesel", "柴油发电机组"],
+                ["Water Pumps", "动力水泵"],
+                ["Lighting Towers", "移动照明灯塔"],
+              ].map(([en, zh]) => (
+                <div key={en} className="flex items-center justify-between border border-white/15 bg-white/5 px-5 py-4">
+                  <span className="font-semibold">{locale === "en" ? en : zh}</span>
                   <PackageCheck className="h-5 w-5 text-red-400" />
                 </div>
               ))}
